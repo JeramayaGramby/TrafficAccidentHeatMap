@@ -1,0 +1,6 @@
+@CrashDateHeatMap.Server_HostAddress = http://localhost:5160
+
+GET {{CrashDateHeatMap.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

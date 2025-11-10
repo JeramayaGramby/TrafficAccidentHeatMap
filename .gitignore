@@ -1,0 +1,102 @@
+# Global repository .gitignore for CrashDateHeatMap
+# Consolidates common ignores for .NET, Angular client, Docker, and editors.
+
+# -----------------
+# System files
+# -----------------
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon
+
+# -----------------
+# Build output
+# -----------------
+bin/
+obj/
+dist/
+out-tsc/
+bazel-out/
+
+# -----------------
+# Node
+# -----------------
+node_modules/
+npm-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+.pnpm-debug.log
+
+# -----------------
+# Angular / client
+# -----------------
+.angular/cache/
+coverage/
+typings/
+
+# -----------------
+# Visual Studio Code
+# -----------------
+.vscode/
+
+# -----------------
+# Visual Studio
+# -----------------
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.VC.db
+*.pidb
+
+# -----------------
+# Docker
+# -----------------
+Dockerfile
+docker-compose.yml
+docker-compose.override.yml
+docker-compose.*.yml
+.dockerignore
+docker-stack.yml
+.env
+
+# -----------------
+# Rider / JetBrains
+# -----------------
+.idea/
+*.iml
+
+# -----------------
+# ReSharper and caches
+# -----------------
+*.resharper
+_ReSharper*/
+*.dotCover
+
+# -----------------
+# Logs and temp
+# -----------------
+*.log
+*.tmp
+*.temp
+*.bak
+*.orig
+*.swp
+
+# -----------------
+# Secrets and local settings
+# -----------------
+.env.local
+.env.*.local
+secrets.json
+appsettings.Development.json
+
+# -----------------
+# Optional: files to keep out of repo history (use carefully)
+# -----------------
+# If you previously committed large or sensitive files and need to remove them
+# from history, use a history rewrite tool like `git filter-repo` or BFG.
+
+# End of file
