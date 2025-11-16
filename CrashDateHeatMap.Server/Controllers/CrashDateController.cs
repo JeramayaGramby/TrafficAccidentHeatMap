@@ -1,57 +1,77 @@
-// After the basic using statements, don't forget to include the using statement for the Models namespace. 
-
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
+using Microsoft.VisualBasic.FileIO;
 using CrashDateHeatMap.Server.Models;
 
-namespace CrashDateHeatMap.Server.Controllers {
 
-    class CrashDateController {
-        void CrashDateLists() {
-            List<int> CrashRecordNumberList = new List<int>();
-            List<string> DistrictList = new List<string>();
-            List<string> CrashCountyList = new List<string>();
-            List<string> MunicipalityList = new List<string>();
-            List<DateTime> CrashDateList = new List<DateTime>();
-            List<byte> CrashSceneLightingList = new List<byte>();
-            List<byte> WeatherList = new List<byte>();
-            List<byte> RoadConditionList = new List<byte>();
-            List<byte> CollisionTypeList = new List<byte>();
-            List<ushort> RelationToRoadList = new List<ushort>();
-            List<byte> IntersectionTypeList = new List<byte>();
-            List<byte> TrafficControlDeviceTypeList = new List<byte>();
-            List<byte> UrbanRuralList = new List<byte>();
-            List<byte> LocationTypeList = new List<byte>();
-            List<bool> SchoolBusInvolvedList = new List<bool>();
-            List<bool> SchoolZoneList = new List<bool>();
-            List<byte> PersonCountList = new List<byte>();
-            List<byte> VehicleCountList = new List<byte>();
-            List<byte> FatalCountList = new List<byte>();
-            List<byte> InjuryCountList = new List<byte>();
-            List<byte> PedestrianCountList = new List<byte>();
-            List<byte> PedestrianDeathCountList = new List<byte>();
-            List<double> PoliceReportedLatitudeList = new List<double>();
-            List<double> PoliceReportedLongitudeList = new List<double>();
-            List<double> SecondaryResponderLatitudeList = new List<double>();
-            List<double> SecondaryResponderLongitudeList = new List<double>();
-            List<bool> PhantomVehicleInvolvedList = new List<bool>();
-            List<byte> SpeedLimitList = new List<byte>();
-            List<string> StreetNameList = new List<string>();
-            List<bool> ImpairedDriverList = new List<bool>();
+namespace CrashDateHeatMap.Server.Controllers { 
 
-        }
-
-        void ExtractCrashDateData()
+    class CrashDateController
+    {
+        public static CrashDateSchema LoadCrashData(string zipFilePath, string csvFileName)
         {
-            System.IO.StreamReader sr = new System.IO.StreamReader("CrashData.csv");
+            var crashData = new CrashDateSchema();
+            using (var zip = ZipFile.OpenRead(zipFilePath))
+            {
+                var entry = zip.GetEntry(csvFileName);
 
-            var crashDateLists = new CrashDateController();
-            crashDateLists.CrashDateLists();
+                if (entry == null)
+                {
+                    throw new FileNotFoundException($"The file {csvFileName} was not found in the zip archive.");
+                    return -1;
+                }
+                using (var stream = entry.Open())
+                using (var reader = new StreamReader(stream))
+                using (var parser = new TextFieldParser(reader))
+                {
+                    parser.TextFieldType = FieldType.Delimited;
+                    parser.SetDelimiters(",");
+                    // Skip header line
+                    if (!parser.EndOfData)
+                    {
+                        parser.ReadLine();
+                    }
+                    while (!parser.EndOfData)
+                    {
+                        var fields = parser.ReadFields();
+                        
+                        if (fields == null || fields.Length < 30) {
+                            continue;
+                        }
+                        crashData.CrashRecordNumber.Add(int.Parse(fields[0]));
+                        crashData.District.Add(fields[1]);
+                        crashData.CrashCounty.Add(fields[2]);
+                        crashData.Municipality.Add(fields[3]);
+                        crashData.CrashDate.Add(DateTime.Parse(fields[4]));
+                        crashData.CrashSceneLighting.Add(byte.Parse(fields[5]));
+                        crashData.Weather.Add(byte.Parse(fields[6]));
+                        crashData.RoadCondition.Add(byte.Parse(fields[7]));
+                        crashData.CollisionType.Add(byte.Parse(fields[8]));
+                        crashData.RelationToRoad.Add(ushort.Parse(fields[9]));
+                        crashData.IntersectionType.Add(byte.Parse(fields[10]));
+                        crashData.TrafficControlDeviceType.Add(byte.Parse(fields[11]));
+                        crashData.UrbanRural.Add(byte.Parse(fields[12]));
+                        crashData.LocationType.Add(byte.Parse(fields[13]));
+                        crashData.SchoolBusInvolved.Add(bool.Parse(fields[14]));
+                        crashData.SchoolZone.Add(bool.Parse(fields[15]));
+                        crashData.PersonCount.Add(byte.Parse(fields[16]));
+                        crashData.VehicleCount.Add(byte.Parse(fields[17]));
+                        crashData.FatalCount.Add(byte.Parse(fields[18]));
+                        crashData.InjuryCount.Add(byte.Parse(fields[19]));
+                        crashData.PedestrianCount.Add(byte.Parse(fields[20]));
+                        crashData.PedestrianDeathCount.Add(byte.Parse(fields[21]));
+                        crashData.PoliceReportedLatitude.Add(double.Parse(fields[22]));
+                        crashData.PoliceReportedLongitude.Add(double.Parse(fields[23]));
+                        crashData.SecondaryResponderLatitude.Add(double.Parse(fields[24]));
+                        crashData.SecondaryResponderLongitude.Add(double.Parse(fields[25]));
+                        crashData.PhantomVehicleInvolved.Add(bool.Parse(fields[26]));
+                        crashData.SpeedLimit.Add(byte.Parse(fields[27]));
+                        crashData.StreetName.Add(fields[28]);
+                        crashData.ImpairedDriver.Add(bool.Parse(fields[29]));
 
-        }
-            CrashDateSchema crashDateSchema = new CrashDateSchema() {
-                
-            };
-        }
-    }
+
+
+                    }
