@@ -3,38 +3,38 @@ using System.Collections.Generic;
 
 namespace CrashDateHeatMap.Server.Models
 {
-    public struct CrashDateRecord
+    public class CrashDateRecord
     {
-        public int CrashRecordNumber;
-        public string? District;
-        public string? CrashCounty;
-        public string? Municipality;
-        public DateTime CrashDate;
-        public byte CrashSceneLighting;
-        public byte Weather;
-        public byte RoadCondition;
-        public byte CollisionType;
-        public ushort RelationToRoad;
-        public byte IntersectionType;
-        public byte TrafficControlDeviceType;
-        public byte UrbanRural;
-        public byte LocationType;
-        public bool SchoolBusInvolved;
-        public bool SchoolZone;
-        public byte PersonCount;
-        public byte VehicleCount;
-        public byte FatalCount;
-        public byte InjuryCount;
-        public byte PedestrianCount;
-        public byte PedestrianDeathCount;
-        public double PoliceReportedLatitude;
-        public double PoliceReportedLongitude;
-        public double SecondaryResponderLatitude;
-        public double SecondaryResponderLongitude;
-        public bool PhantomVehicleInvolved;
-        public byte SpeedLimit;
-        public string? StreetName;
-        public bool ImpairedDriver;
+        public int CrashRecordNumber { get; set; }
+        public string? District { get; set; }
+        public string? CrashCounty { get; set; }
+        public string? Municipality { get; set; }
+        public DateTime CrashDate { get; set; }
+        public byte CrashSceneLighting { get; set; }
+        public byte Weather { get; set; }
+        public byte RoadCondition { get; set; }
+        public byte CollisionType { get; set; }
+        public ushort RelationToRoad { get; set; }
+        public byte IntersectionType { get; set; }
+        public byte TrafficControlDeviceType { get; set; }
+        public byte UrbanRural { get; set; }
+        public byte LocationType { get; set; }
+        public bool SchoolBusInvolved { get; set; }
+        public bool SchoolZone { get; set; }
+        public byte PersonCount { get; set; }
+        public byte VehicleCount { get; set; }
+        public byte FatalCount { get; set; }
+        public byte InjuryCount { get; set; }
+        public byte PedestrianCount { get; set; }
+        public byte PedestrianDeathCount { get; set; }
+        public double PoliceReportedLatitude { get; set; }
+        public double PoliceReportedLongitude { get; set; }
+        public double SecondaryResponderLatitude { get; set; }
+        public double SecondaryResponderLongitude { get; set; }
+        public bool PhantomVehicleInvolved { get; set; }
+        public byte SpeedLimit { get; set; }
+        public string? StreetName { get; set; }
+        public bool ImpairedDriver { get; set; }
     }
     
 }

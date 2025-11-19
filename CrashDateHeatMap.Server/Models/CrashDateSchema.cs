@@ -69,6 +69,12 @@ namespace CrashDateHeatMap.Server.Models
             StreetName = new List<string?>();
             ImpairedDriver = new List<bool>();
         }
+        // You may have to make the IEnumerable type generic
+        // In the future, remember to use this as a generator to yield return CrashDateRecord instances
+        // An empty interface is fine so it can compile.
+        public IEnumerable<CrashDateRecord> RecordProducer()
+        {
+            yield break;
+        }
     }
-
 }
